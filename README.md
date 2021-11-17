@@ -1,5 +1,5 @@
 # tweepySQC
-This is a "Twitter-scraper" I made that calls on the Twitter API and tweepy to scrape Tweets based on the hashtag you would like to search for. This program will export all the Tweets that contain your desired hashtag or text every couple of minutes for a specificed number of times and then export them into a .csv file that you will then be able to filter and sort through.
+This is a "Twitter-scraper" I made that utilizes the Twitter API and the Python package, Tweepy, to scrape Tweets based on the hashtag you would like to search for. This program will collect all the Tweets that contain your desired hashtag or text every couple of minutes for a specificed number of times and then export all the Tweets that were collected into a .csv file that you will then be able to filter and sort through.
 
 These are the following information that my code collects and includes in the .csv output file:
 1. screen_name: EXAMPLE: "screen_name": "TwitterAPI"

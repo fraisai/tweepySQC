@@ -1,5 +1,8 @@
 # tweepySQC
-This is a "Twitter-scraper" I made that utilizes the Twitter API and the Python package, Tweepy, to scrape Tweets based on the hashtag you would like to search for. This program will collect all the Tweets that contain your desired hashtag or text every couple of minutes for a specificed number of times and then export all the Tweets that were collected into a .csv file that you will then be able to filter and sort through.
+This is a "Twitter-scraper" I made that utilizes the Twitter API and the Python package, Tweepy, to scrape Tweets based on the hashtag you would like to search for. 
+This program will collect all the Tweets that contain your desired hashtag or text every couple of minutes for a specificed number of times and then export all the Tweets that were collected into a .csv file that you will then be able to filter and sort through.
+
+I originally wrote the code for this Twitter scraper in order to find tweets with hashtags or mentions of cryptocurrencies such as Bitcoin, Ethereum, Dogecoin, and any other desired Cryptocurrencies that Twitter users are currently mentioning in their hashtags or tweeting about and so for example, I would be able to collect all the tweets in a certain time frame with the hashtags of #BTC, #ETH, #Bitcoin, #Dogecoinm etc and compile whatever other information I am interested in (such as the number of users who favorited or retweted a tweet) into a single .csv file that I could then further organize or edit. 
 
 Example of the .csv file that results from my code:
 ![image](https://user-images.githubusercontent.com/9156403/142295787-34af5910-8a7f-412d-90f1-1770137a553f.png)

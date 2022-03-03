@@ -93,7 +93,7 @@ def tweepyscrape(words_to_search, start_date, numtweet, number_runs):
     # Obtain timestamp in a readable format
     to_csv_timestamp = datetime.today().strftime('%Y%m%d_%H%M%S')
     
-    # Define working path and filename
+    # Define working path and filename (this will become the filename of the .csv file)
     path = os.getcwd()
     filename = path + '/data/' + to_csv_timestamp + 'btc.csv'
     

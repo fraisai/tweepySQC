@@ -10,6 +10,11 @@ import preprocessor as p
 import os
 import time
 
+# Updated secrets for new acc
+# auth = tweepy.OAuthHandler(SEC_TWI_API.consumer_key, SEC_TWI_API.consumer_secret)
+# auth.set_access_token(SEC_TWI_API.access_token, SEC_TWI_API.access_token_secret)
+
+
 auth = tweepy.OAuthHandler(SEC_TWI_API.consumer_key, SEC_TWI_API.consumer_secret)
 auth.set_access_token(SEC_TWI_API.access_token, SEC_TWI_API.access_token_secret)
 

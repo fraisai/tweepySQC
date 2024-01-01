@@ -9,56 +9,53 @@ import string
 import preprocessor as p
 import os
 import time
+from datetime import datetime
 
-# Updated secrets for new acc
+'''
+Updated secrets for new acc
 # auth = tweepy.OAuthHandler(SEC_TWI_API.consumer_key, SEC_TWI_API.consumer_secret)
 # auth.set_access_token(SEC_TWI_API.access_token, SEC_TWI_API.access_token_secret)
-
+'''
 
 auth = tweepy.OAuthHandler(SEC_TWI_API.consumer_key, SEC_TWI_API.consumer_secret)
 auth.set_access_token(SEC_TWI_API.access_token, SEC_TWI_API.access_token_secret)
 
 api = tweepy.API(auth)
 
-def tweepyscrape(words_to_search, start_date, numtweet, number_runs):
-    
-    # Define a pandas dataframe to store the date of the tweet
+def tweepyscrape(words_to_search, start_date, num_tweets, num_runs):
+    '''
+        screen_name: EXAMPLE => "screen_name": "TwitterAPI"
+        followers_count : The number of followers the account has.
+        retweet_count: Number of times this Tweet has been retweeted.
+        favorite_count: Indicates approximately how many times this Tweet has been liked by Twitter users.
+        text: actual UTF-8 text of the status update. EXAMPLE: "text":"To make room for more expression, we will now count all emojis as equal—including those with gender‍‍‍ ‍‍and skin t… https://t.co/MkGjXf9aXm"
+        created_at: UTC time at which tweet was created. EXAMPLE: "created_at": "Wed Oct 10 20:19:24 +0000 2018"
+        hashtags:
+        verified: Indicates whether the user is verified or not. EXAMPLE: "verified": true
+        url: url of tweet
+    '''
+
+     # Define a pandas dataframe to store the date of the tweet
     pd_data_tweet = pd.DataFrame(columns = ['screen_name', 'followers_count', 'retweet_count', 'favorite_count', 'text', 'created_at', 'hashtags', 'url', 'description'])
     
-    # screen_name: EXAMPLE: "screen_name": "TwitterAPI"
-    # followers_count : The number of followers the account has.
-    # retweet_count: Number of times this Tweet has been retweeted. 
-    # favorite_count: Indicates approximately how many times this Tweet has been liked by Twitter users.
-    # text: actual UTF-8 text of the status update. EXAMPLE: "text":"To make room for more expression, we will now count all emojis as equal—including those with gender‍‍‍ ‍‍and skin t… https://t.co/MkGjXf9aXm"
-    # created_at: UTC time at which tweet was created. EXAMPLE: "created_at": "Wed Oct 10 20:19:24 +0000 2018"
-    # hashtags:
-    # verified : Indicates whether the user is verified or not. EXAMPLE: "verified": true
-    # url:
-    # description: EXAMPLE: "description": "The Real Twitter API. Tweets about API changes, service issues and our Developer Platform. Don't get an answer? It's on my website.",
-    
-    #Time it takes to scrape tweets for each run
-    prog_start = time.time
+    prog_start = time.time  # time it takes to scrape tweets for each run
 
-    for i in range(0, number_runs):
+    for i in range(0, num_runs):
         start_run = time.time()
-        print(start_run)
         
         # .Cursor() lets you collect tweets and it returns an object that you iterate over/loop thru to access the data
-        collected_tweets = tweepy.Cursor(api.search_tweets, q=words_to_search, lang='en', since=start_date, tweet_mode='extended').items(numtweet)
+        collected_tweets = tweepy.Cursor(api.search_tweets, q=words_to_search, lang='en', since=start_date, tweet_mode='extended').items(num_tweets)
         
-        # Store ^ tweets into a python list
-        list_tweet = [i for i in collected_tweets]
+        list_tweet = [i for i in collected_tweets] # Store ^ tweets into a python list
         
         
         # Start scraping tweets individually
         counter_tweet = 0
         
-        # Values for the columns of the pandas DataFrame
-        # ['screen_name', 'followers_count', 'retweet_count', 'favorite_count', 'text', 'created_at', 'hashtags', 'url', 'description'])
+        # Values for the columns of the pandas DataFrame: ['screen_name', 'followers_count', 'retweet_count', 'favorite_count', 'text', 'created_at', 'hashtags', 'url', 'description'])
     
         for j in list_tweet:
             screen_name = j.user.screen_name 
-            print(screen_name+ '\n')
             followers_count = j.user.followers_count
             retweet_count = j.retweet_count
             favorite_count = j.favorite_count
@@ -72,9 +69,6 @@ def tweepyscrape(words_to_search, start_date, numtweet, number_runs):
                 text = j.retweeted_status.full_text
             except AttributeError:
                 text = j.full_text
-                
-            print("Text is: ")    
-            print(text)
             
             # Add all the variables to the empty list, updated_tweet_list
             updated_tweet_list = [screen_name, followers_count, retweet_count, favorite_count, text, created_at, hashtags, url, description]
@@ -93,7 +87,6 @@ def tweepyscrape(words_to_search, start_date, numtweet, number_runs):
         #time.sleep(10) #15 minute sleep time
         
     # Once all runs have completed, save them to a single csv file:
-    from datetime import datetime
     
     # Obtain timestamp in a readable format
     to_csv_timestamp = datetime.today().strftime('%Y%m%d_%H%M%S')
@@ -106,7 +99,7 @@ def tweepyscrape(words_to_search, start_date, numtweet, number_runs):
     pd_data_tweet.to_csv(filename, index = False)
     
     program_end = time.time()
-# tweepyscrape(words_to_search, start_date, numtweet, number_runs)
+# tweepyscrape(words_to_search, start_date, num_tweets, num_runs)
 
 words_to_search = "#btc"
 #Date format: "2021-11-03"
